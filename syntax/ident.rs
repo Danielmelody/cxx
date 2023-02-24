@@ -12,9 +12,9 @@ fn check(cx: &mut Check, name: &Pair) {
         if ident.starts_with("cxxbridge") {
             cx.error(ident, error::CXXBRIDGE_RESERVED.msg);
         }
-        if ident.contains("__") {
-            cx.error(ident, error::DOUBLE_UNDERSCORE.msg);
-        }
+        // if ident.contains("__") {
+        //     cx.error(ident, error::DOUBLE_UNDERSCORE.msg);
+        // }
     }
 
     fn check_rust_ident(cx: &mut Check, ident: &str) {

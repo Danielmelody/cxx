@@ -20,7 +20,6 @@ pub static ERRORS: &[Error] = &[
     CXX_TYPE_BY_VALUE,
     DISCRIMINANT_OVERFLOW,
     DOT_INCLUDE,
-    DOUBLE_UNDERSCORE,
     RESERVED_LIFETIME,
     RUST_TYPE_BY_VALUE,
     UNSUPPORTED_TYPE,
@@ -61,12 +60,6 @@ pub static DOT_INCLUDE: Error = Error {
     msg: "#include relative to `.` or `..` is not supported in Cargo builds",
     label: Some("#include relative to `.` or `..` is not supported in Cargo builds"),
     note: Some("note: use a path starting with the crate name"),
-};
-
-pub static DOUBLE_UNDERSCORE: Error = Error {
-    msg: "identifiers containing double underscore are reserved in C++",
-    label: Some("reserved identifier"),
-    note: Some("identifiers containing double underscore are reserved in C++"),
 };
 
 pub static RESERVED_LIFETIME: Error = Error {
