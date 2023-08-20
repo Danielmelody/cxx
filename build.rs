@@ -3,12 +3,23 @@ use std::path::Path;
 use std::process::Command;
 
 fn main() {
-    cc::Build::new()
+    let target = std::env::var("TARGET").unwrap();
+    let profile = std::env::var("PROFILE").unwrap();
+    let mut binding = cc::Build::new();
+    binding
         .file("src/cxx.cc")
         .cpp(true)
         .cpp_link_stdlib(None) // linked via link-cplusplus crate
         .flag_if_supported(cxxbridge_flags::STD)
-        .warnings_into_errors(cfg!(deny_warnings))
+        
+        .warnings_into_errors(cfg!(deny_warnings));
+
+    // A hack, we need to link with existing c++ library linked with debug crt
+    if target.contains("windows") && profile == "debug" {
+        binding
+        .flag("-D_DEBUG");
+    }
+    binding
         .compile("cxxbridge1");
 
     println!("cargo:rerun-if-changed=src/cxx.cc");
